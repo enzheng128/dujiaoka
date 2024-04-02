@@ -249,7 +249,7 @@
                                     @foreach($payways as $key => $way)
                                         <div class="pay-type @if($key == 0) pay-select @endif"
                                              data-type="{{ $way['pay_check'] }}" data-id="{{ $way['id'] }}"
-                                             data-name="{{ $way['pay_name'] }}">
+                                             data-name="{{ $way['pay_name'] }}@if($way['pay_fee'] > 0 && $way['is_open_pay_fee'] === 1)(通道费率：{{ $way['pay_fee'] }}%)@endif">
                                         </div>
                                     @endforeach
                                 </div>

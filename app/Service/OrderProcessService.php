@@ -125,6 +125,7 @@ class OrderProcessService
         $this->carmisService = app('Service\CarmisService');
         $this->emailtplService = app('Service\EmailtplService');
         $this->goodsService = app('Service\GoodsService');
+        $this->payService = app('Service\PayService');
 
     }
 
@@ -279,6 +280,24 @@ class OrderProcessService
     }
 
     /**
+     * 计算支付通道手续费
+     * @return float
+     *
+     * @author    outtime<i@treeo.cn>
+     * @copyright outtime<i@treeo.cn>
+     * @link      https://outti.me
+     */
+    private function calculateThePayFee(float $price): float
+    {
+        $fee = $this->payService->detail($this->payID)->pay_fee;
+        $is_open_pay_fee =  $this->payService->detail($this->payID)->is_open_pay_fee;
+        if(!$price || $fee == 0 || !$is_open_pay_fee) return 0;
+        $fee = ceil($fee * $price)  / 100;
+        if ($fee < 0.01) $fee = 0.01;
+        return $fee;
+    }
+
+    /**
      * 计算实际需要支付的价格
      *
      * @param float $totalPrice 总价
@@ -297,6 +316,7 @@ class OrderProcessService
         if ($actualPrice <= 0) {
             $actualPrice = 0;
         }
+        $actualPrice+=$this->calculateThePayFee($actualPrice);
         return $actualPrice;
     }
 

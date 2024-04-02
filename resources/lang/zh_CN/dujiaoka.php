@@ -64,6 +64,7 @@ return [
     'each' => '每个',
     'email' => '邮箱',
     'payment_method' => '支付方式',
+    'payment_fee' => '通道手续费',
     'search_password' => '订单查询密码',
     'img_verify_code' => '图形验证码',
     'coupon_code' => '优惠码',

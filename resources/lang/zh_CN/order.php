@@ -7,6 +7,7 @@ return [
     ],
     'fields' => [
         'actual_price' => '实际支付价格',
+        'bill_payment_fee' => '通道费率',
         'buy_amount' => '购买数量',
         'buy_ip' => '购买者下单IP地址',
         'coupon_discount_price' => '优惠码优惠价格',

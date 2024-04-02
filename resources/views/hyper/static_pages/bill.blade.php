@@ -26,6 +26,9 @@
                 {{-- 优惠金额 --}}
                 <div class="mb-1"><label>{{ __('hyper.bill_discounted_price') }}：</label><span>{{ $coupon_discount_price }}</span></div>
                 @endif
+                @if($pay['pay_fee'] > 0 && $pay['is_open_pay_fee'] === 1)
+                <div class="mb-1"><label>{{ __('hyper.bill_payment_fee') }}：</label><span>{{ $pay['pay_fee'] }}%</span></div>
+                @endif
                 {{-- 商品总价 --}}
                 <div class="mb-1"><label>{{ __('hyper.bill_actual_payment') }}：</label><span>{{ $actual_price }}</span></div>
                 {{-- 电子邮箱 --}}

@@ -72,6 +72,7 @@ return [
     'bill_promo_code'        => '优惠码',
     'bill_discounted_price'  => '优惠金额',
     'bill_actual_payment'    => '商品总价',
+    'bill_payment_fee'       => '通道费率',
     'bill_email'             => '邮箱',
     'bill_order_information' => '订单资料',
     'bill_payment_method'    => '支付方式',

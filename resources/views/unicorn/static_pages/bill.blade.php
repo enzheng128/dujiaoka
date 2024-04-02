@@ -33,6 +33,9 @@
                                         <div class="mb-1"><label>{{ __('order.fields.coupon_id') }}：</label><span>{{ $coupon['coupon'] }}</span></div>
                                         <div class="mb-1"><label>{{ __('order.fields.coupon_discount_price') }}：</label><span>{{ __('dujiaoka.money_symbol') }}{{ $coupon_discount_price }}</span></div>
                                     @endif
+                                    @if($pay['pay_fee'] > 0 && $pay['is_open_pay_fee'] === 1)
+                                    <div class="mb-1"><label>{{ __('dujiaoka.payment_fee') }}：</label><span>{{ $pay['pay_fee'] }}%</span></div>
+                                    @endif
                                     @if($wholesale_discount_price > 0 )
                                         <div class="mb-1"><label>{{ __('order.fields.wholesale_discount_price') }}：</label><span>{{ __('dujiaoka.money_symbol') }}{{ $wholesale_discount_price }}</span></div>
                                     @endif

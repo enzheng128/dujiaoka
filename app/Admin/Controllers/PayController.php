@@ -26,6 +26,8 @@ class PayController extends AdminController
             $grid->column('id')->sortable();
             $grid->column('pay_name');
             $grid->column('pay_check');
+            $grid->column('pay_fee');
+            $grid->column('is_open_pay_fee')->switch();
             $grid->column('pay_method')->select(PayModel::getMethodMap());
             $grid->column('merchant_id')->limit(20);
             $grid->column('merchant_key')->limit(20);
@@ -71,6 +73,14 @@ class PayController extends AdminController
             $show->field('merchant_key');
             $show->field('merchant_pem');
             $show->field('pay_check');
+            $show->field('pay_fee');
+            $show->field('is_open_pay_fee')->as(function ($isOpen) {
+                if ($isOpen == PayModel::STATUS_OPEN) {
+                    return admin_trans('dujiaoka.status_open');
+                } else {
+                    return admin_trans('dujiaoka.status_close');
+                }
+            });
             $show->field('pay_client')->as(function ($payClient) {
                 if ($payClient == PayModel::PAY_CLIENT_PC) {
                     return admin_trans('pay.fields.pay_client_pc');
@@ -116,6 +126,8 @@ class PayController extends AdminController
                 ->options(PayModel::getClientMap())
                 ->default(PayModel::PAY_CLIENT_PC)
                 ->required();
+            $form->rate('pay_fee')->default(0)->help(admin_trans('pay.helps.pay_fee'))->required();
+            $form->switch('is_open_pay_fee')->default(PayModel::STATUS_CLOSE);
             $form->radio('pay_method')
                 ->options(PayModel::getMethodMap())
                 ->default(PayModel::METHOD_JUMP)

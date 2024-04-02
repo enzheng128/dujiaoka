@@ -79,6 +79,12 @@
                                     </td>
                                 </tr>
                             @endif
+                            @if($pay['pay_fee'] > 0 && $pay['is_open_pay_fee'] === 1)
+                            <tr>
+                                <td style="text-align: right">{{ __('order.fields.bill_payment_fee') }}：</td>
+                                <td> {{$pay['pay_fee']}}%</td>
+                            </tr>
+                            @endif
                             <tr>
                                 <td style="text-align: right">{{ __('order.fields.actual_price') }}：</td>
                                 <td>

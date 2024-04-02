@@ -124,6 +124,9 @@
                                                                             <input type="radio" class="form-check-input"
                                                                                    name="payway" value="{{ $way['id'] }}" @if($index == 0) checked="checked" @endif>
                                                                             {{ $way['pay_name'] }}
+                                                                            @if($way['pay_fee'] > 0 && $way['is_open_pay_fee'] === 1)
+                                                                                (通道费率{{ $way['pay_fee'] }}%)
+                                                                            @endif
                                                                         </label>
                                                                     </div>
                                                                 @endforeach

@@ -85,6 +85,8 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection merchant_key
      * @property Grid\Column|Collection merchant_pem
      * @property Grid\Column|Collection pay_check
+     * @property Grid\Column|Collection pay_fee
+     * @property Grid\Column|Collection is_open_pay_fee
      * @property Grid\Column|Collection pay_client
      * @property Grid\Column|Collection pay_handleroute
      * @property Grid\Column|Collection pay_method
@@ -164,6 +166,8 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection merchant_key(string $label = null)
      * @method Grid\Column|Collection merchant_pem(string $label = null)
      * @method Grid\Column|Collection pay_check(string $label = null)
+     * @method Grid\Column|Collection pay_fee(string $label = null)
+     * @method Grid\Column|Collection is_open_pay_fee(string $label = null)
      * @method Grid\Column|Collection pay_client(string $label = null)
      * @method Grid\Column|Collection pay_handleroute(string $label = null)
      * @method Grid\Column|Collection pay_method(string $label = null)
@@ -335,7 +339,7 @@ namespace Dcat\Admin {
     class Show {}
 
     /**
-     
+
      */
     class Form {}
 
@@ -343,19 +347,19 @@ namespace Dcat\Admin {
 
 namespace Dcat\Admin\Grid {
     /**
-     
+
      */
     class Column {}
 
     /**
-     
+
      */
     class Filter {}
 }
 
 namespace Dcat\Admin\Show {
     /**
-     
+
      */
     class Field {}
 }
