@@ -475,28 +475,28 @@ INSERT INTO `pays` VALUES (5, '码支付微信', 'mwx', 0.00, 0, 1, 1, '商户�
 INSERT INTO `pays` VALUES (6, 'Paysapi 支付宝', 'pszfb', 0.00, 0, 1, 1, '商户号', '', '密钥', '/pay/paysapi', 1, '2019-07-11 09:31:12', '2019-07-11 09:31:12', NULL);
 INSERT INTO `pays` VALUES (7, 'Paysapi 微信', 'pswx', 0.00, 0, 1, 1, '商户号', '', '密钥', '/pay/paysapi', 1, '2019-07-11 09:31:43', '2019-07-11 09:31:43', NULL);
 INSERT INTO `pays` VALUES (8, '微信扫码', 'wescan', 0.00, 0, 2, 1, '商户号', '', '密钥', '/pay/wepay', 1, '2019-07-12 07:50:20', '2019-07-12 08:08:26', NULL);
-INSERT INTO `pays` VALUES (11, 'Payjs 微信扫码', 0.00, 0, 'payjswescan', 1, 1, '商户号', '', '密钥', '/pay/payjs', 1, '2019-07-25 07:28:42', '2019-08-20 12:17:58', NULL);
-INSERT INTO `pays` VALUES (14, '易支付-支付宝', 0.00, 0, 'alipay', 1, 1, '商户号', '', '密钥', '/pay/yipay', 2, '2020-01-10 15:22:56', '2020-01-11 06:33:07', NULL);
-INSERT INTO `pays` VALUES (15, '易支付-微信', 0.00, 0, 'wxpay', 1, 1, '商户号', NULL, '密钥', '/pay/yipay', 1, '2020-07-14 16:27:06', NULL, NULL);
-INSERT INTO `pays` VALUES (16, '易支付-QQ 钱包', 0.00, 0, 'qqpay', 1, 1, '商户号', NULL, '密钥', '/pay/yipay', 1, '2020-07-14 16:27:03', NULL, NULL);
+INSERT INTO `pays` VALUES (11, 'Payjs 微信扫码', 'payjswescan', 0.00, 0, 1, 1, '商户号', '', '密钥', '/pay/payjs', 1, '2019-07-25 07:28:42', '2019-08-20 12:17:58', NULL);
+INSERT INTO `pays` VALUES (14, '易支付-支付宝', 'alipay', 0.00, 0, 1, 1, '商户号', '', '密钥', '/pay/yipay', 2, '2020-01-10 15:22:56', '2020-01-11 06:33:07', NULL);
+INSERT INTO `pays` VALUES (15, '易支付-微信', 'wxpay', 0.00, 0, 1, 1, '商户号', NULL, '密钥', '/pay/yipay', 1, '2020-07-14 16:27:06', NULL, NULL);
+INSERT INTO `pays` VALUES (16, '易支付-QQ 钱包', 'qqpay', 0.00, 0, 1, 1, '商户号', NULL, '密钥', '/pay/yipay', 1, '2020-07-14 16:27:03', NULL, NULL);
 INSERT INTO `pays` VALUES (17, 'PayPal', 'paypal', 0.00, 0, 1, 1, '商户号', NULL, '密钥', '/pay/paypal', 1, '2020-07-14 16:25:20', NULL, NULL);
 INSERT INTO `pays` VALUES (19, 'V 免签支付宝', 'vzfb', 0.00, 0, 1, 1, 'V 免签通讯密钥', NULL, 'V 免签地址 例如 https://vpay.qq.com/    结尾必须有/', 'pay/vpay', 1, '2020-05-01 13:15:56', '2020-05-01 13:18:29', NULL);
 INSERT INTO `pays` VALUES (20, 'V 免签微信', 'vwx', 0.00, 0, 1, 1, 'V 免签通讯密钥', NULL, 'V 免签地址 例如 https://vpay.qq.com/    结尾必须有/', 'pay/vpay', 1, '2020-05-01 13:17:28', '2020-05-01 13:18:38', NULL);
-INSERT INTO `pays` VALUES (21, 'Stripe[微信支付宝]', 0.00, 0, 'stripe', 1, 1, 'pk开头的可发布密钥', NULL, 'sk开头的密钥', 'pay/stripe', 1, '2020-10-29 13:15:56', '2020-10-29 13:18:29', NULL);
-INSERT INTO `pays` VALUES (22, 'Coinbase[加密货币]', 0.00, 0, 'coinbase', 1, 3, '费率', 'API密钥', '共享密钥', 'pay/coinbase', 0, '2021-08-15 13:15:56', '2021-10-12 13:15:56', NULL);
-INSERT INTO `pays` VALUES (23, 'Epusdt[trc20]', 0.00, 0, 'epusdt', 1, 3, 'API密钥', '不填即可', 'api请求地址', 'pay/epusdt', 0, '2022-03-22 13:15:56', '2022-03-22 13:15:56', NULL);
+INSERT INTO `pays` VALUES (21, 'Stripe[微信支付宝]', 'stripe', 0.00, 0, 1, 1, 'pk开头的可发布密钥', NULL, 'sk开头的密钥', 'pay/stripe', 1, '2020-10-29 13:15:56', '2020-10-29 13:18:29', NULL);
+INSERT INTO `pays` VALUES (22, 'Coinbase[加密货币]', 'coinbase', 0.00, 0, 1, 3, '费率', 'API密钥', '共享密钥', 'pay/coinbase', 0, '2021-08-15 13:15:56', '2021-10-12 13:15:56', NULL);
+INSERT INTO `pays` VALUES (23, 'Epusdt[trc20]', 'epusdt', 0.00, 0, 1, 3, 'API密钥', '不填即可', 'api请求地址', 'pay/epusdt', 0, '2022-03-22 13:15:56', '2022-03-22 13:15:56', NULL);
 
 INSERT INTO `pays` VALUES (24,'TRX', 'tokenpay-trx', 0.00, 0, 1, 3, 'TRX', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
-INSERT INTO `pays` VALUES (25,'USDT-TRC20', 0.00, 0, 'tokenpay-usdt-trc', 1, 3, 'USDT_TRC20', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
-INSERT INTO `pays` VALUES (26,'ETH', 0.00, 0, 'tokenpay-eth', 1, 3, 'EVM_ETH_ETH', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
-INSERT INTO `pays` VALUES (27,'USDT-ERC20', 0.00, 0, 'tokenpay-usdt-eth', 1, 3, 'EVM_ETH_USDT_ERC20', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
-INSERT INTO `pays` VALUES (28,'USDC-ERC20', 0.00, 0, 'tokenpay-usdc-eth', 1, 3, 'EVM_ETH_USDC_ERC20', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
+INSERT INTO `pays` VALUES (25,'USDT-TRC20', 'tokenpay-usdt-trc', 0.00, 0, 1, 3, 'USDT_TRC20', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
+INSERT INTO `pays` VALUES (26,'ETH', 'tokenpay-eth', 0.00, 0, 1, 3, 'EVM_ETH_ETH', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
+INSERT INTO `pays` VALUES (27,'USDT-ERC20', 'tokenpay-usdt-eth', 0.00, 0, 1, 3, 'EVM_ETH_USDT_ERC20', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
+INSERT INTO `pays` VALUES (28,'USDC-ERC20', 'tokenpay-usdc-eth', 0.00, 0, 1, 3, 'EVM_ETH_USDC_ERC20', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
 INSERT INTO `pays` VALUES (29,'BNB', 'tokenpay-bnb', 0.00, 0, 1, 3, 'EVM_BSC_BNB', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
-INSERT INTO `pays` VALUES (30,'USDT-BSC', 0.00, 0, 'tokenpay-usdt-bsc', 1, 3, 'EVM_BSC_USDT_BEP20', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
-INSERT INTO `pays` VALUES (31,'USDC-BSC', 0.00, 0, 'tokenpay-usdc-bsc', 1, 3, 'EVM_BSC_USDC_BEP20', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
-INSERT INTO `pays` VALUES (32,'MATIC', 0.00, 0, 'tokenpay-matic', 1, 3, 'EVM_Polygon_MATIC', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
-INSERT INTO `pays` VALUES (33,'USDT-Polygon', 0.00, 0, 'tokenpay-usdt-polygon', 1, 3, 'EVM_Polygon_USDT_ERC20', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
-INSERT INTO `pays` VALUES (34,'USDC-Polygon', 0.00, 0, 'tokenpay-usdc-polygon', 1, 3, 'EVM_Polygon_USDC_ERC20', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
+INSERT INTO `pays` VALUES (30,'USDT-BSC', 'tokenpay-usdt-bsc', 0.00, 0, 1, 3, 'EVM_BSC_USDT_BEP20', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
+INSERT INTO `pays` VALUES (31,'USDC-BSC', 'tokenpay-usdc-bsc', 0.00, 0, 1, 3, 'EVM_BSC_USDC_BEP20', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
+INSERT INTO `pays` VALUES (32,'MATIC', 'tokenpay-matic', 0.00, 0, 1, 3, 'EVM_Polygon_MATIC', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
+INSERT INTO `pays` VALUES (33,'USDT-Polygon', 'tokenpay-usdt-polygon', 0.00, 0, 1, 3, 'EVM_Polygon_USDT_ERC20', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
+INSERT INTO `pays` VALUES (34,'USDC-Polygon', 'tokenpay-usdc-polygon', 0.00, 0, 1, 3, 'EVM_Polygon_USDC_ERC20', '你的API密钥', 'https://token-pay.xxx.com', 'pay/tokenpay', 1, now(), now(), NULL);
 
 -- ----------------------------
 COMMIT;
