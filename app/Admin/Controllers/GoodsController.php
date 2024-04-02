@@ -55,6 +55,7 @@ class GoodsController extends AdminController
             $grid->column('sales_volume');
             $grid->column('ord')->editable()->sortable();
             $grid->column('is_open')->switch();
+            $grid->column('is_hide_stock')->switch();
             $grid->column('created_at')->sortable();
             $grid->column('updated_at');
             $grid->filter(function (Grid\Filter $filter) {
@@ -114,6 +115,13 @@ class GoodsController extends AdminController
                     return admin_trans('dujiaoka.status_close');
                 }
             });
+            $show->field('is_hide_stock')->as(function ($isOpen) {
+                if ($isOpen == GoodsGroupModel::STATUS_OPEN) {
+                    return admin_trans('dujiaoka.status_open');
+                } else {
+                    return admin_trans('dujiaoka.status_close');
+                }
+            });
             $show->wholesale_price_cnf()->unescape()->as(function ($wholesalePriceCnf) {
                 return  "<textarea class=\"form-control field_wholesale_price_cnf _normal_\"  rows=\"10\" cols=\"30\">" . $wholesalePriceCnf . "</textarea>";
             });
@@ -155,6 +163,7 @@ class GoodsController extends AdminController
             $form->textarea('api_hook');
             $form->number('ord')->default(1)->help(admin_trans('dujiaoka.ord'));
             $form->switch('is_open')->default(GoodsModel::STATUS_OPEN);
+            $form->switch('is_hide_stock')->default(GoodsModel::STATUS_OPEN);
         });
     }
 }

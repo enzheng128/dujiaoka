@@ -15,6 +15,8 @@ return [
         'gd_description' => '商品描述',
         'gd_keywords' => '商品关键字',
         'in_stock' => '库存',
+        'high' => '充足',
+        'low' => '不多了',
         'ord' => '排序权重',
         'other_ipu_cnf' => '其他输入框配置',
         'picture' => '商品图片',
@@ -26,6 +28,7 @@ return [
         'automatic_delivery' => '自动发货',
         'manual_processing' => '人工处理',
         'is_open' => '是否上架',
+        'is_hide_stock' => '隐藏库存',
         'coupon_id' => '可用优惠码'
     ],
     'options' => [

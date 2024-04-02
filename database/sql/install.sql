@@ -349,6 +349,7 @@ CREATE TABLE `goods` (
   `other_ipu_cnf` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '其他输入框配置',
   `api_hook` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '回调事件',
   `is_open` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否启用，1是 0否',
+  `is_hide_stock` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否隐藏库存，1是 0否',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,

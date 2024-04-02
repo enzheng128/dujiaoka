@@ -31,7 +31,7 @@
                                     <div class="card-body p-4">
                                         <h3 class="card-title">{{ $gd_name }}</h3>
                                         <h6>
-                                            <small class="text-muted">{{__('goods.fields.in_stock')}}：{{ $in_stock }}</small>
+                                            <small class="text-muted">{{__('goods.fields.in_stock')}}：{{ $is_hide_stock ? ($in_stock > 10 ? __('goods.fields.high') : __('goods.fields.low')) : $in_stock }}</small>
                                         </h6>
                                         @if($buy_limit_num > 0)
                                             <h6><small class="badge bg-danger">
@@ -125,7 +125,7 @@
                                                                                    name="payway" value="{{ $way['id'] }}" @if($index == 0) checked="checked" @endif>
                                                                             {{ $way['pay_name'] }}
                                                                             @if($way['pay_fee'] > 0 && $way['is_open_pay_fee'] === 1)
-                                                                                (通道费率{{ $way['pay_fee'] }}%)
+                                                                                ({{__('dujiaoka.payment_fee')}}{{ $way['pay_fee'] }}%)
                                                                             @endif
                                                                         </label>
                                                                     </div>

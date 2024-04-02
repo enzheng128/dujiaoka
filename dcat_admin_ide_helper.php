@@ -46,6 +46,7 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection coupon
      * @property Grid\Column|Collection discount
      * @property Grid\Column|Collection is_open
+     * @property Grid\Column|Collection is_hide_stock
      * @property Grid\Column|Collection is_use
      * @property Grid\Column|Collection ret
      * @property Grid\Column|Collection coupons_id
@@ -127,6 +128,7 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection coupon(string $label = null)
      * @method Grid\Column|Collection discount(string $label = null)
      * @method Grid\Column|Collection is_open(string $label = null)
+     * @method Grid\Column|Collection is_hide_stock(string $label = null)
      * @method Grid\Column|Collection is_use(string $label = null)
      * @method Grid\Column|Collection ret(string $label = null)
      * @method Grid\Column|Collection coupons_id(string $label = null)
@@ -213,6 +215,7 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection coupon
      * @property Show\Field|Collection discount
      * @property Show\Field|Collection is_open
+     * @property Show\Field|Collection is_hide_stock
      * @property Show\Field|Collection is_use
      * @property Show\Field|Collection ret
      * @property Show\Field|Collection coupons_id
@@ -292,6 +295,7 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection coupon(string $label = null)
      * @method Show\Field|Collection discount(string $label = null)
      * @method Show\Field|Collection is_open(string $label = null)
+     * @method Show\Field|Collection is_hide_stock(string $label = null)
      * @method Show\Field|Collection is_use(string $label = null)
      * @method Show\Field|Collection ret(string $label = null)
      * @method Show\Field|Collection coupons_id(string $label = null)
