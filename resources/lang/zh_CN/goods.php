@@ -17,6 +17,7 @@ return [
         'in_stock' => '库存',
         'high' => '充足',
         'low' => '较低',
+        'none' => '缺货',
         'ord' => '排序权重',
         'other_ipu_cnf' => '其他输入框配置',
         'picture' => '商品图片',
