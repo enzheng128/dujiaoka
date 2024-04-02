@@ -448,7 +448,7 @@ CREATE TABLE `pays` (
   `pay_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '支付名称',
   `pay_check` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '支付标识',
   `pay_fee` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '通道费率',
-  `is_open_pay_fee` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否启用通道费率 1是 0否'
+  `is_open_pay_fee` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否启用通道费率 1是 0否',
   `pay_method` tinyint(1) NOT NULL COMMENT '支付方式 1跳转 2扫码',
   `pay_client` tinyint(1) NOT NULL DEFAULT '1' COMMENT '支付场景：1电脑pc 2手机 3全部',
   `merchant_id` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商户 ID',
