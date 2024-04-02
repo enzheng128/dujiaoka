@@ -21,6 +21,16 @@ Route::group(['prefix' => 'pay', 'namespace' => 'Pay', 'middleware' => ['dujiaok
     // 码支付
     Route::get('mapay/{payway}/{orderSN}', 'MapayController@gateway');
     Route::post('mapay/notify_url', 'MapayController@notifyUrl');
+    //虎皮椒支付
+    Route::get('hpjwxpay/{payway}/{oid}','HpjwxpayController@gateway');
+    Route::post('hpjwxpay/notify_url','HpjwxpayController@notifyUrl');
+    Route::get('hpjalipay/{payway}/{oid}','HpjalipayController@gateway');
+    Route::post('hpjalipay/notify_url','HpjalipayController@notifyUrl');
+    //迅虎支付
+    Route::get('xhwxpay/{payway}/{oid}','XhwxpayController@gateway');
+    Route::post('xhwxpay/notify_url','XhwxpayController@notifyUrl');
+    Route::get('xhalipay/{payway}/{oid}','XhalipayController@gateway');
+    Route::post('xhalipay/notify_url','XhalipayController@notifyUrl');
     // Paysapi
     Route::get('paysapi/{payway}/{orderSN}', 'PaysapiController@gateway');
     Route::post('paysapi/notify_url', 'PaysapiController@notifyUrl');
