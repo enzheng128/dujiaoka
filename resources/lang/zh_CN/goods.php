@@ -16,7 +16,7 @@ return [
         'gd_keywords' => '商品关键字',
         'in_stock' => '库存',
         'high' => '充足',
-        'low' => '不多了',
+        'low' => '较低',
         'ord' => '排序权重',
         'other_ipu_cnf' => '其他输入框配置',
         'picture' => '商品图片',
