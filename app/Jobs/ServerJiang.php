@@ -33,6 +33,12 @@ class ServerJiang implements ShouldQueue
     private $order;
 
     /**
+     * 商品服务层.
+     * @var \App\Service\PayService
+     */
+    private $goodsService;
+
+    /**
      * Create a new job instance.
      *
      * @return void
@@ -40,6 +46,7 @@ class ServerJiang implements ShouldQueue
     public function __construct(Order $order)
     {
         $this->order = $order;
+        $this->goodsService = app('Service\GoodsService');
     }
 
     /**
