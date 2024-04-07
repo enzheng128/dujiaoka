@@ -52,7 +52,7 @@ class ImportCarmis extends Form
         if (empty($input['confirmed'])) {
             // 弹出确认框，包含导入数量
             return $this->response()
-                ->warning("{$admin_trans('carmis.fields.are_you_import_sure_number')} {$importCount}")
+                ->warning(admin_trans('carmis.fields.are_you_import_sure_number') . "{$importCount}")
                 ->interceptor([ // 添加拦截器
                     'then' => <<<JS
                         // 用户点击确认后，再次提交表单，并附加 confirmed 参数
