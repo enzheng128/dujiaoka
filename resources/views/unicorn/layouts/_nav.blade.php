@@ -16,6 +16,11 @@
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <div class="container-fluid">
                             <a class="navbar-brand" href="/">{{ dujiaoka_config_get('text_logo') }}</a>
+                            <ul class="navbar-nav me-auto offcanvas-header">
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold @if(\Illuminate\Support\Facades\Request::url() == url('order-search')) active @endif" href="{{ url('order-search') }}">{{ __('dujiaoka.order_search') }}</a>
+                                </li>
+                            </ul>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#navbarColor" aria-controls="navbarColor" aria-expanded="false"
                                     aria-label="Toggle navigation">
@@ -28,7 +33,7 @@
                                         <a class="nav-link @if(\Illuminate\Support\Facades\Request::path() == '/') active @endif " href="/">{{__('dujiaoka.home_page')}}
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item fw-bold">
                                         <a class="nav-link @if(\Illuminate\Support\Facades\Request::url() == url('order-search')) active @endif" href="{{ url('order-search') }}">{{ __('dujiaoka.order_search') }}</a>
                                     </li>
                                 </ul>
