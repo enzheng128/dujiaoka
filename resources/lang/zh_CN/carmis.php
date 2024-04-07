@@ -17,6 +17,7 @@ return [
         'carmis_list' => '卡密列表',
         'carmis_txt' => '卡密文本',
         'are_you_import_sure' => '确定要导入卡密吗？',
+        'are_you_import_sure_number' => '数量：',
         'remove_duplication' => '是否去重',
     ],
     'options' => [

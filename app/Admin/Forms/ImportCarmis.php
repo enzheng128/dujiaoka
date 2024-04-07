@@ -45,6 +45,29 @@ class ImportCarmis extends Form
         if ($input['remove_duplication'] == 1) {
             $carmisData = assoc_unique($carmisData, 'carmi');
         }
+        // 计算即将导入的数据数量
+        $importCount = count($carmisData);
+
+        // 检查是否已经确认导入
+        if (empty($input['confirmed'])) {
+            // 弹出确认框，包含导入数量
+            return $this->response()
+                ->warning("{admin_trans('carmis.fields.are_you_import_sure_number')} {$importCount}")
+                ->interceptor([ // 添加拦截器
+                    'then' => <<<JS
+                        // 用户点击确认后，再次提交表单，并附加 confirmed 参数
+                        function (target, args) {
+                            var form = target.parents('form');
+                            $('<input>').attr({
+                                type: 'hidden',
+                                name: 'confirmed',
+                                value: '1'
+                            }).appendTo(form);
+                            form.submit();
+                        }
+    JS
+                ]);
+        }
         Carmis::query()->insert($carmisData);
         // 删除文件
         Storage::disk('public')->delete($input['carmis_txt']);
