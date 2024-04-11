@@ -15,11 +15,12 @@ class WepayController extends PayController
             // 加载网关
             $this->loadGateWay($orderSN, $payway);
             // 分割 merchant_id，获取 app_id 和 mch_id
-            list($app_id, $mch_id) = explode('-', $this->payGateway->merchant_id . '-');
+            list($mch_id, $app_id) = explode('-', $this->payGateway->merchant_id . '-');
+            $app_id_info = $app_id ?: $this->payGateway->merchant_key;
             $config = [
-                'app_id' => $app_id,
-                'miniapp_id' => $app_id,
-                'mch_id' => $mch_id ?: $this->payGateway->merchant_key,
+                'app_id' => $app_id_info,
+                'miniapp_id' => $app_id_info,
+                'mch_id' => $mch_id,
                 'key' => $this->payGateway->merchant_pem,
                 'notify_url' => url($this->payGateway->pay_handleroute . '/notify_url'),
                 'return_url' => url('detail-order-sn', ['orderSN' => $this->order->order_sn]),
