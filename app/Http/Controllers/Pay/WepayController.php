@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pay;
 
 use App\Exceptions\RuleValidationException;
 use App\Http\Controllers\PayController;
+use GuzzleHttp\Client;
 use Yansongda\Pay\Pay;
 
 class WepayController extends PayController
@@ -48,17 +49,17 @@ class WepayController extends PayController
                     }
                     break;
                 case 'miniapp':
-                    try{
-                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                            // 获取 POST 数据
-                            $postData = file_get_contents('php://input');
-                            $data = json_decode($postData, true);
-                            $openId = $data['openId'];
-                            // 在订单信息中添加 openId
-                            $order['openid'] = $openId;
-                            $result = Pay::wechat($config)->miniapp($order)->toArray();
-                            return $result;
-                        } else {
+                    if (isset($_GET['openId'])) {
+                        $openId = $_GET['openId'];
+                        // 在订单信息中添加 openId
+                        $order['openid'] = $openId;
+                        $result = Pay::wechat($config)->miniapp($order)->toArray();
+                        return json_encode([
+                            'code' => 200,
+                            'message' => $result
+                        ], JSON_UNESCAPED_UNICODE);
+                    } else {
+                        try{
                             $result = [
                                 'orderid' => $this->order->order_sn
                             ];
@@ -75,14 +76,21 @@ class WepayController extends PayController
                             $result['payname'] =$this->payGateway->pay_name;
                             $result['actual_price'] = (float)$this->order->actual_price;
                             return $this->render('static_pages/wepay', $result, __('dujiaoka.wx_miniapp_to_pay'));
+                        } catch (\Exception $e) {
+                            throw new RuleValidationException(__('dujiaoka.prompt.abnormal_payment_channel') . $e->getMessage());
                         }
-                    } catch (\Exception $e) {
-                        throw new RuleValidationException(__('dujiaoka.prompt.abnormal_payment_channel') . $e->getMessage());
                     }
                     break;
 
-            }
+                }
         } catch (RuleValidationException $exception) {
+            if (isset($_GET['openId'])) {
+                header('Content-Type: application/json; charset=utf-8');
+                return json_encode([
+                    'code' => 500,
+                    'message' => $exception->getMessage()
+                ], JSON_UNESCAPED_UNICODE);
+            }
             return $this->err($exception->getMessage());
         }
     }
