@@ -49,21 +49,33 @@ class WepayController extends PayController
                     break;
                 case 'miniapp':
                     try{
-                        $result = Pay::wechat($config)->miniapp($order)->toArray();
-                        $wechatUrlLineUrl = $this->payGateway->merchant_key;
-                        $client = new Client([
-                            'headers' => [ 'Content-Type' => 'application/json' ]
-                        ]);
-                        $response = $client->post($wechatUrlLineUrl, ['body' => json_encode($result)]);
-                        $body = json_decode($response->getBody()->getContents(), true);
-                        if (!isset($body['code']) || $body['code'] != 200) {
-                            return $this->err(__('dujiaoka.prompt.abnormal_payment_channel') . $body['message']);
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                            // 获取 POST 数据
+                            $postData = file_get_contents('php://input');
+                            $data = json_decode($postData, true);
+                            $openId = $data['openId'];
+                            // 在订单信息中添加 openId
+                            $order['openid'] = $openId;
+                            $result = Pay::wechat($config)->miniapp($order)->toArray();
+                            return $result;
+                        } else {
+                            $result = [
+                                'orderid' => $this->order->order_sn
+                            ];
+                            $wechatUrlLineUrl = $this->payGateway->merchant_key;
+                            $client = new Client([
+                                'headers' => [ 'Content-Type' => 'application/json' ]
+                            ]);
+                            $response = $client->post($wechatUrlLineUrl, ['body' => json_encode($result)]);
+                            $body = json_decode($response->getBody()->getContents(), true);
+                            if (!isset($body['code']) || $body['code'] != 200) {
+                                return $this->err(__('dujiaoka.prompt.abnormal_payment_channel') . $body['message']);
+                            }
+                            $result['url_line'] = $body['data'];
+                            $result['payname'] =$this->payGateway->pay_name;
+                            $result['actual_price'] = (float)$this->order->actual_price;
+                            return $this->render('static_pages/wepay', $result, __('dujiaoka.wx_miniapp_to_pay'));
                         }
-                        $result['url_line'] = $body['data'];
-                        $result['payname'] =$this->payGateway->pay_name;
-                        $result['actual_price'] = (float)$this->order->actual_price;
-                        $result['orderid'] = $this->order->order_sn;
-                        return $this->render('static_pages/wepay', $result, __('dujiaoka.wx_miniapp_to_pay'));
                     } catch (\Exception $e) {
                         throw new RuleValidationException(__('dujiaoka.prompt.abnormal_payment_channel') . $e->getMessage());
                     }
