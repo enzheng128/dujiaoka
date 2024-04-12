@@ -61,7 +61,7 @@ class WepayController extends PayController
                     } else {
                         try{
                             $result = [
-                                'orderid' => $this->order->order_sn
+                                'orderId' => $this->order->order_sn
                             ];
                             $wechatUrlLineUrl = $this->payGateway->merchant_key;
                             $client = new Client([
