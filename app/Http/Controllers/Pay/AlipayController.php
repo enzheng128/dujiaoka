@@ -6,6 +6,7 @@ use App\Exceptions\RuleValidationException;
 use App\Http\Controllers\PayController;
 use Illuminate\Http\Request;
 use Yansongda\Pay\Pay;
+use Agent;
 
 class AlipayController extends PayController
 {
@@ -57,9 +58,9 @@ class AlipayController extends PayController
                     } catch (\Exception $e) {
                         return $this->err(__('dujiaoka.prompt.abnormal_payment_channel') . $e->getMessage());
                     }
-                case 'aliwap':
+                case 'alih5':
                     try{
-                        $result = Pay::alipay($config)->wap($order);
+                        $result = Agent::isMobile() ? Pay::alipay($config)->wap($order) : Pay::alipay($config)->web($order);
                         return $result;
                     } catch (\Exception $e) {
                         return $this->err(__('dujiaoka.prompt.abnormal_payment_channel') . $e->getMessage());
