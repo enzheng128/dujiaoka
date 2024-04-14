@@ -6,6 +6,7 @@ use App\Exceptions\RuleValidationException;
 use App\Http\Controllers\PayController;
 use Illuminate\Http\Request;
 use Yansongda\Pay\Pay;
+use Agent;
 
 class AlipayController extends PayController
 {
@@ -37,7 +38,9 @@ class AlipayController extends PayController
                 'total_amount' => (float)$this->order->actual_price,
                 'subject' => $this->order->order_sn
             ];
-            switch ($payway){
+            // 支付宝支付兜底
+            $payInfo = $payway === 'zfbweb' ? (Agent::isMobile() ? 'aliwap' : 'aliweb') : $payway;
+            switch ($payInfo){
                 case 'zfbf2f':
                 case 'alipayscan':
                     try{

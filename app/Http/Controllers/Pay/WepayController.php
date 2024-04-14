@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Pay;
 
 use App\Exceptions\RuleValidationException;
 use App\Http\Controllers\PayController;
+use GuzzleHttp\Client;
 use Yansongda\Pay\Pay;
+use Agent;
+
 
 class WepayController extends PayController
 {
@@ -14,9 +17,13 @@ class WepayController extends PayController
         try {
             // 加载网关
             $this->loadGateWay($orderSN, $payway);
+            // 分割 merchant_id，获取 app_id 和 mch_id
+            list($mch_id, $app_id) = explode('-', $this->payGateway->merchant_id . '-');
+            $app_id_info = $app_id ?: $this->payGateway->merchant_key;
             $config = [
-                'app_id' => $this->payGateway->merchant_id,
-                'mch_id' => $this->payGateway->merchant_key,
+                'app_id' => $app_id_info,
+                'miniapp_id' => $app_id_info,
+                'mch_id' => $mch_id,
                 'key' => $this->payGateway->merchant_pem,
                 'notify_url' => url($this->payGateway->pay_handleroute . '/notify_url'),
                 'return_url' => url('detail-order-sn', ['orderSN' => $this->order->order_sn]),
@@ -30,7 +37,9 @@ class WepayController extends PayController
                 'total_fee' => bcmul($this->order->actual_price, 100, 0),
                 'body' => $this->order->order_sn
             ];
-            switch ($payway){
+            // 微信web支付相关兜底
+            $payInfo = $payway === 'weweb' ? (Agent::isMobile() ? 'weminiapp' : 'wescan') : $payway;
+            switch ($payInfo){
                 case 'wescan':
                     try{
                         $result = Pay::wechat($config)->scan($order)->toArray();
@@ -43,9 +52,49 @@ class WepayController extends PayController
                         throw new RuleValidationException(__('dujiaoka.prompt.abnormal_payment_channel') . $e->getMessage());
                     }
                     break;
+                case 'weminiapp':
+                    if (isset($_GET['openId'])) {
+                        $openId = $_GET['openId'];
+                        // 在订单信息中添加 openId
+                        $order['openid'] = $openId;
+                        $result = Pay::wechat($config)->miniapp($order)->toArray();
+                        return json_encode([
+                            'code' => 200,
+                            'message' => $result
+                        ], JSON_UNESCAPED_UNICODE);
+                    } else {
+                        try{
+                            $result = [
+                                'orderId' => $this->order->order_sn
+                            ];
+                            $wechatUrlLineUrl = $this->payGateway->merchant_key;
+                            $client = new Client([
+                                'headers' => [ 'Content-Type' => 'application/json' ]
+                            ]);
+                            $response = $client->post($wechatUrlLineUrl, ['body' => json_encode($result)]);
+                            $body = json_decode($response->getBody()->getContents(), true);
+                            if (!isset($body['code']) || $body['code'] != 200) {
+                                return $this->err(__('dujiaoka.prompt.abnormal_payment_channel') . $body['message']);
+                            }
+                            $result['url_line'] = $body['data'];
+                            $result['payname'] =$this->payGateway->pay_name;
+                            $result['actual_price'] = (float)$this->order->actual_price;
+                            return $this->render('static_pages/wepay', $result, __('dujiaoka.wx_miniapp_to_pay'));
+                        } catch (\Exception $e) {
+                            throw new RuleValidationException(__('dujiaoka.prompt.abnormal_payment_channel') . $e->getMessage());
+                        }
+                    }
+                    break;
 
-            }
+                }
         } catch (RuleValidationException $exception) {
+            if (isset($_GET['openId'])) {
+                header('Content-Type: application/json; charset=utf-8');
+                return json_encode([
+                    'code' => 500,
+                    'message' => $exception->getMessage()
+                ], JSON_UNESCAPED_UNICODE);
+            }
             return $this->err($exception->getMessage());
         }
     }

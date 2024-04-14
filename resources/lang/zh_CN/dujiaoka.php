@@ -91,6 +91,11 @@ return [
     'pay_order_expiration_date_prompt' => '请打开 APP 扫码支付！有效期:min分钟',
     'money_symbol' => '￥',
     'purchase_limit' => '每单限',
+    'wx_miniapp_to_pay' => '微信支付',
+    'wx_miniapp_pay_expiration_date_prompt'=> '请点击唤醒微信后支付！有效期:min分钟',
+
+    'wx_miniapp_pay_click' => '点击唤醒微信支付',
+    'pay_close' => '取消支付',
 
 
     'prompt' => [
