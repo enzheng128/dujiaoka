@@ -38,7 +38,9 @@ class AlipayController extends PayController
                 'total_amount' => (float)$this->order->actual_price,
                 'subject' => $this->order->order_sn
             ];
-            switch ($payway){
+            // 支付宝支付兜底
+            $payInfo = $payway === 'zfbweb' ? (Agent::isMobile() ? 'aliwap' : 'aliweb') : $payway;
+            switch ($payInfo){
                 case 'zfbf2f':
                 case 'alipayscan':
                     try{
@@ -58,9 +60,9 @@ class AlipayController extends PayController
                     } catch (\Exception $e) {
                         return $this->err(__('dujiaoka.prompt.abnormal_payment_channel') . $e->getMessage());
                     }
-                case 'alih5':
+                case 'aliwap':
                     try{
-                        $result = Agent::isMobile() ? Pay::alipay($config)->wap($order) : Pay::alipay($config)->web($order);
+                        $result = Pay::alipay($config)->wap($order);
                         return $result;
                     } catch (\Exception $e) {
                         return $this->err(__('dujiaoka.prompt.abnormal_payment_channel') . $e->getMessage());

@@ -6,6 +6,8 @@ use App\Exceptions\RuleValidationException;
 use App\Http\Controllers\PayController;
 use GuzzleHttp\Client;
 use Yansongda\Pay\Pay;
+use Agent;
+
 
 class WepayController extends PayController
 {
@@ -35,7 +37,9 @@ class WepayController extends PayController
                 'total_fee' => bcmul($this->order->actual_price, 100, 0),
                 'body' => $this->order->order_sn
             ];
-            switch ($payway){
+            // 微信web支付相关兜底
+            $payInfo = $payway === 'weweb' ? (Agent::isMobile() ? 'weminiapp' : 'wescan') : $payway;
+            switch ($payInfo){
                 case 'wescan':
                     try{
                         $result = Pay::wechat($config)->scan($order)->toArray();
@@ -48,7 +52,7 @@ class WepayController extends PayController
                         throw new RuleValidationException(__('dujiaoka.prompt.abnormal_payment_channel') . $e->getMessage());
                     }
                     break;
-                case 'miniapp':
+                case 'weminiapp':
                     if (isset($_GET['openId'])) {
                         $openId = $_GET['openId'];
                         // 在订单信息中添加 openId
