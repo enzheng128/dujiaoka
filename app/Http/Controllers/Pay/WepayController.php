@@ -60,12 +60,12 @@ class WepayController extends PayController
                         $result = Pay::wechat($config)->miniapp($order)->toArray();
                         return json_encode([
                             'code' => 200,
-                            'message' => $result
+                            'data' => $result,
                         ], JSON_UNESCAPED_UNICODE);
                     } else {
                         try{
                             $result = [
-                                'orderId' => $this->order->order_sn
+                                'orderid' => $this->order->order_sn
                             ];
                             $wechatUrlLineUrl = $this->payGateway->merchant_key;
                             $client = new Client([
