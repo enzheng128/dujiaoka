@@ -33,6 +33,12 @@ class ServerJiang implements ShouldQueue
     private $order;
 
     /**
+     * 商品服务层.
+     * @var \App\Service\PayService
+     */
+    private $goodsService;
+
+    /**
      * Create a new job instance.
      *
      * @return void
@@ -40,6 +46,7 @@ class ServerJiang implements ShouldQueue
     public function __construct(Order $order)
     {
         $this->order = $order;
+        $this->goodsService = app('Service\GoodsService');
     }
 
     /**
@@ -49,20 +56,26 @@ class ServerJiang implements ShouldQueue
      */
     public function handle()
     {
-        $postdata = http_build_query([
+        $goodInfo = $this->goodsService->detail($this->order->goods_id);
+        $postdata = [
             'title' => __('dujiaoka.prompt.new_order_push') . ":{$this->order['ord_title']}",
             'content' => "
-- " . __('order.fields.title') . "：{$this->order->title}
-- " . __('order.fields.order_sn') . "：{$this->order->order_sn}
-- " . __('order.fields.email') . "：{$this->order->email}
-- " . __('order.fields.actual_price') . "：{$this->order->actual_price}
+            - " . __('order.fields.order_id') . "：{$this->order->id}
+            - " . __('order.fields.order_sn') . "：{$this->order->order_sn}
+            - " . __('order.fields.pay_id') . "：{$this->order->pay->pay_name}
+            - " . __('order.fields.title') . "：{$this->order->title}
+            - " . __('order.fields.actual_price') . "：{$this->order->actual_price}
+            - " . __('order.fields.email') . "：{$this->order->email}
+            - " . __('goods.fields.gd_name') . "：{$goodInfo->gd_name}
+            - " . __('goods.fields.in_stock') . "：{$goodInfo->in_stock}
+            - " . __('order.fields.order_created') . "：{$this->order->created_at}
             "
-        ]);
+        ];
         $opts = [
             'http' => [
                 'method' => 'POST',
-                'header' => 'Content-type: application/x-www-form-urlencoded',
-                'content' => $postdata
+                'header' => 'Content-type: application/json',
+                'content' => json_encode($postdata,JSON_UNESCAPED_UNICODE)
             ]
         ];
         $context = stream_context_create($opts);
