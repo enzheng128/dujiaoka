@@ -40,6 +40,7 @@ class ServerJiang implements ShouldQueue
     public function __construct(Order $order)
     {
         $this->order = $order;
+        $this->goodsService = app('Service\GoodsService');
     }
 
     /**
@@ -49,13 +50,19 @@ class ServerJiang implements ShouldQueue
      */
     public function handle()
     {
+        $goodInfo = $this->goodsService->detail($this->order->goods_id);
         $postdata = http_build_query([
             'title' => __('dujiaoka.prompt.new_order_push') . ":{$this->order['ord_title']}",
             'content' => "
-- " . __('order.fields.title') . "：{$this->order->title}
-- " . __('order.fields.order_sn') . "：{$this->order->order_sn}
-- " . __('order.fields.email') . "：{$this->order->email}
-- " . __('order.fields.actual_price') . "：{$this->order->actual_price}
+            - " . __('order.fields.order_id') . "：{$this->order->id}
+            - " . __('order.fields.order_sn') . "：{$this->order->order_sn}
+            - " . __('order.fields.pay_id') . "：{$this->order->pay->pay_name}
+            - " . __('order.fields.title') . "：{$this->order->title}
+            - " . __('order.fields.actual_price') . "：{$this->order->actual_price}
+            - " . __('order.fields.email') . "：{$this->order->email}
+            - " . __('order.fields.gd_name') . "：{$goodInfo->gd_name}
+            - " . __('order.fields.in_stock') . "：{$goodInfo->in_stock}
+            - " . __('order.fields.order_created') . "：{$this->order->created_at}
             "
         ]);
         $opts = [
