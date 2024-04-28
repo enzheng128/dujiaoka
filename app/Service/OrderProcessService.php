@@ -232,7 +232,7 @@ class OrderProcessService
         $couponPrice = 0;
         // 优惠码优惠价格
         if ($this->coupon) {
-            $couponPrice =  $this->coupon->discount;
+            $couponPrice = bcmul($this->coupon->discount, $this->buyAmount, 2);
         }
         return $couponPrice;
     }
