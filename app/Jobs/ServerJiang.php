@@ -58,8 +58,9 @@ class ServerJiang implements ShouldQueue
     {
         $goodInfo = $this->goodsService->detail($this->order->goods_id);
         $postdata = [
-            'title' => __('dujiaoka.prompt.new_order_push') . ":{$this->order['ord_title']}",
+            'title' => __('dujiaoka.prompt.new_order_push') . ":{$this->order->title}",
             'content' => "
+            - " . __('goods.fields.in_stock') . "：{$goodInfo->in_stock}
             - " . __('order.fields.order_id') . "：{$this->order->id}
             - " . __('order.fields.order_sn') . "：{$this->order->order_sn}
             - " . __('order.fields.pay_id') . "：{$this->order->pay->pay_name}
@@ -67,7 +68,6 @@ class ServerJiang implements ShouldQueue
             - " . __('order.fields.actual_price') . "：{$this->order->actual_price}
             - " . __('order.fields.email') . "：{$this->order->email}
             - " . __('goods.fields.gd_name') . "：{$goodInfo->gd_name}
-            - " . __('goods.fields.in_stock') . "：{$goodInfo->in_stock}
             - " . __('order.fields.order_created') . "：{$this->order->created_at}
             "
         ];
