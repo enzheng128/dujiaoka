@@ -13,10 +13,12 @@ class YipayController extends PayController
         try {
             // 加载网关
             $this->loadGateWay($orderSN, $payway);
+            // 类型按_切割，拿第一个
+            $type = explode('_', $payway)[0];
             //组装支付参数
             $parameter = [
                 'pid' =>  $this->payGateway->merchant_id,
-                'type' => $payway,
+                'type' => $type,
                 'out_trade_no' => $this->order->order_sn,
                 'return_url' => route('yipay-return', ['order_id' => $this->order->order_sn]),
                 'notify_url' => url($this->payGateway->pay_handleroute . '/notify_url'),
